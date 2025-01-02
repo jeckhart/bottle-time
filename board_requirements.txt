@@ -6,6 +6,8 @@ adafruit_requests==4.1.8
 adafruit_ticks==1.1.1
 neopixel==6.3.12
 adafruit_fakerequests==1.0.15
+adafruit_logging==5.5.2
+adafruit_ntp==3.3.1
 adafruit_minimqtt==7.10.5
 adafruit_portalbase==2.1.2
 adafruit_bitmap_font==2.1.3
