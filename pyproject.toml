@@ -8,6 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 circuitpython-stubs = "^9.2.1"
+adafruit-circuitpython-magtag = "==2.2.11"
+adafruit-circuitpython-led-animation = "==2.11.0"
+circup = "^2.0.4"
 
 
 [build-system]
