@@ -223,8 +223,8 @@ class BottleTracker:
 
         current_time = adt.datetime.now()
         end_time = self.last_bottle_time + adt.timedelta(seconds=self.interval)
-        total_time = (end_time - self.last_bottle_time).seconds
-        time_left = (end_time - current_time).seconds
+        total_time = (end_time - self.last_bottle_time).seconds if end_time > self.last_bottle_time else 0
+        time_left = (end_time - current_time).seconds if end_time > current_time else 0
         proportion_left = time_left / total_time if total_time else 0
 
         if self.log_interval():
