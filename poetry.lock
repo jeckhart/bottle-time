@@ -95,6 +95,20 @@ files = [
 Adafruit-Blinka = "*"
 
 [[package]]
+name = "adafruit-circuitpython-datetime"
+version = "1.3.0"
+description = "Subset of CPython datetime module"
+optional = false
+python-versions = "*"
+files = [
+    {file = "adafruit_circuitpython_datetime-1.3.0-py3-none-any.whl", hash = "sha256:6234eee9e40ceedb90b414ea97194d2a9ccd27154f3c3bf78fe0123759a94d6e"},
+    {file = "adafruit_circuitpython_datetime-1.3.0.tar.gz", hash = "sha256:8f1084a203cd2337042b1590e129e06df962b1f26be506240cf85ebffe3171ec"},
+]
+
+[package.dependencies]
+Adafruit-Blinka = "*"
+
+[[package]]
 name = "adafruit-circuitpython-display-text"
 version = "3.2.1"
 description = "Displays text using CircuitPython's displayio."
@@ -719,4 +733,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "171780dd5c718b4856179db27200b0a2254d88bc64947a1c3f152c9e78e68820"
+content-hash = "fbe0eadbba85bb2941b403db3c463373153cfe3fe8983274e8e28f75fe78e0be"
