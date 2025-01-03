@@ -284,7 +284,7 @@ logging.getLogger("mqtt_client").setLevel(logging.INFO)
 logging.getLogger("ntp_to_rtc").setLevel(logging.DEBUG)
 logging.getLogger("bottle_tracker").setLevel(logging.INFO)
 
-ntp_to_rtc = NTPtoRTC(pool)
+ntp_to_rtc = NTPtoRTC(pool, tz_offset=-5)
 mqtt_client = MQTTClient(MQTT_FEED_NAME, pool, ssl_context)
 
 # Example usage
