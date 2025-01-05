@@ -189,13 +189,13 @@ adafruit-circuitpython-simpleio = "*"
 
 [[package]]
 name = "adafruit-circuitpython-minimqtt"
-version = "7.10.7"
+version = "7.11.0"
 description = "MQTT client library for CircuitPython"
 optional = false
 python-versions = "*"
 files = [
-    {file = "adafruit_circuitpython_minimqtt-7.10.7-py3-none-any.whl", hash = "sha256:7e874819905ad5adc0b08f5b1440d866b13d55d57c09da3446818e03dcc6cf06"},
-    {file = "adafruit_circuitpython_minimqtt-7.10.7.tar.gz", hash = "sha256:7a35a0b34ad34de8df3f3bd382b2a04aefef28c35a146b4d629587aa3ed963dd"},
+    {file = "adafruit_circuitpython_minimqtt-7.11.0-py3-none-any.whl", hash = "sha256:90cd324bcb9935e25a69928f38cbc4197f21ddfbaa3cd4280c3122e4cf0b5112"},
+    {file = "adafruit_circuitpython_minimqtt-7.11.0.tar.gz", hash = "sha256:c921057b470ed996a10238938d71f22dc8c085da2e476d737ac26e1b79f5cf69"},
 ]
 
 [package.dependencies]
