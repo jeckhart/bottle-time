@@ -200,7 +200,10 @@ class MQTTClient:
             self.connect()
 
         if self.mqtt_loop():
-            self.mqtt_client.loop()
+            try:
+                self.mqtt_client.loop()
+            except Exception as exp:
+                self.logger.exception(exp)
 
 class BottleTracker:
     def __init__(self, pixels, interval=3*3600, blink_interval=1):
