@@ -160,6 +160,7 @@ class MQTTClient:
         self.mqtt_client.on_connect = self.connected
         self.mqtt_client.on_disconnect = self.disconnected
         self.mqtt_client.on_message = self.message
+        self.mqtt_client.on_subscribe = self.subscribed
 
         # Connect the client to the MQTT broker.
 
@@ -172,6 +173,7 @@ class MQTTClient:
                 time.sleep(5)
 
     def add_handler(self, handler, discriminator=None):
+        self.logger.debug(f"Adding handler for topic {self.topic_name}")
         self.handlers.append((handler, discriminator))
 
     # Define callback methods which are called when events occur
@@ -181,6 +183,11 @@ class MQTTClient:
         self.logger.info(f"Connected to Adafruit IO! Listening for topic changes on {self.topic_name}")
         # Subscribe to all changes on the onoff_feed.
         client.subscribe(self.topic_name)
+
+    def subscribed(self, client, userdata, topic, granted_qos):
+        # This method is called when the client subscribes to a new feed.
+        self.logger.debug(f"Subscribed to {topic} with QOS level {granted_qos}")
+
 
     def disconnected(self, client, userdata, rc):
         # This method is called when the client is disconnected
