@@ -295,8 +295,19 @@ class BottleTracker:
         event = data.get("event")
         event_ts = data.get("event-ts")
         ounces = data.get("ounces")
-        print(f"New bottle event received: {event} at {event_ts} with {ounces} ounces")
-        new_bottle_ts = datetime.fromisoformat(event_ts)
+        self.logger.debug(f"New bottle event received: {event} at {event_ts} with {ounces} ounces")
+        try:
+            new_bottle_ts = datetime.fromisoformat(event_ts)
+        except TypeError:
+            try:
+                # try converting from epoch
+                new_bottle_ts = datetime.fromtimestamp(event_ts)
+            except OverflowError:
+                new_bottle_ts = datetime.fromtimestamp(event_ts/1000)
+            # Adjust from UTC to EST
+            new_bottle_ts = new_bottle_ts + adt.timedelta(hours=-5)
+
+        self.logger.info(f"New bottle event received: {event} at {new_bottle_ts.isoformat()} with {ounces} ounces")
         self.new_bottle(new_bottle_ts)
 
     @staticmethod
