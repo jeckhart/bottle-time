@@ -187,6 +187,7 @@ class MQTTClient:
     def subscribed(self, client, userdata, topic, granted_qos):
         # This method is called when the client subscribes to a new feed.
         self.logger.debug(f"Subscribed to {topic} with QOS level {granted_qos}")
+        self.get()
 
 
     def disconnected(self, client, userdata, rc):
@@ -201,6 +202,19 @@ class MQTTClient:
         for handler, discriminator in self.handlers:
             if discriminator is None or discriminator(message):
                 handler(message)
+
+    def get(self):
+        """Calling this method will make Adafruit IO publish the most recent
+        value on the feed.
+        https://io.adafruit.com/api/docs/mqtt.html#retained-values
+
+        Example of obtaining a recently published value on a feed:
+
+        .. code-block:: python
+
+            mqttclient.get()
+        """
+        self.mqtt_client.publish(f"{self.topic_name}/get", "\0")
 
     def loop(self):
         if self.reconnect_event():
@@ -300,8 +314,6 @@ mqtt_client = MQTTClient(MQTT_FEED_NAME, pool, ssl_context)
 # Example usage
 bottle_tracker_magtag = BottleTracker(magtag_pixels, interval = 300)
 bottle_tracker_strip = BottleTracker(strip_pixels, interval = 300)
-bottle_tracker_magtag.new_bottle()
-bottle_tracker_strip.new_bottle()
 
 mqtt_client.add_handler(bottle_tracker_magtag.new_bottle_handler, BottleTracker.new_bottle_discriminator)
 mqtt_client.add_handler(bottle_tracker_strip.new_bottle_handler, BottleTracker.new_bottle_discriminator)
