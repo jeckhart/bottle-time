@@ -324,8 +324,8 @@ ntp_to_rtc = NTPtoRTC(pool, tz_offset=-5)
 mqtt_client = MQTTClient(MQTT_FEED_NAME, pool, ssl_context)
 
 # Example usage
-bottle_tracker_magtag = BottleTracker(magtag_pixels, interval = 300)
-bottle_tracker_strip = BottleTracker(strip_pixels, interval = 300)
+bottle_tracker_magtag = BottleTracker(magtag_pixels, interval = 3600*3)
+bottle_tracker_strip = BottleTracker(strip_pixels, interval = 3600*3)
 
 mqtt_client.add_handler(bottle_tracker_magtag.new_bottle_handler, BottleTracker.new_bottle_discriminator)
 mqtt_client.add_handler(bottle_tracker_strip.new_bottle_handler, BottleTracker.new_bottle_discriminator)
