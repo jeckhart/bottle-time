@@ -8,7 +8,9 @@ import ssl
 import time
 
 import board
+import microcontroller
 import neopixel
+import watchdog
 
 import socketpool
 import wifi
@@ -330,7 +332,12 @@ bottle_tracker_strip = BottleTracker(strip_pixels, interval = 3600*3)
 mqtt_client.add_handler(bottle_tracker_magtag.new_bottle_handler, BottleTracker.new_bottle_discriminator)
 mqtt_client.add_handler(bottle_tracker_strip.new_bottle_handler, BottleTracker.new_bottle_discriminator)
 
+wdt = microcontroller.watchdog
+wdt.timeout = 30
+wdt.mode = watchdog.WatchDogMode.RESET
+
 while True:
+    wdt.feed()
     ntp_to_rtc.loop()
     mqtt_client.loop()
 
