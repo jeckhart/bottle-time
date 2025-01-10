@@ -198,7 +198,7 @@ class MQTTClient:
     def message(self, client, topic, message):
         # This method is called when a topic the client is subscribed to
         # has a new message.
-        self.logger.debug(f"New message on topic {topic}: {message}")
+        self.logger.info(f"New message on topic {topic}: {message}")
         for handler, discriminator in self.handlers:
             if discriminator is None or discriminator(message):
                 handler(message)
@@ -214,6 +214,7 @@ class MQTTClient:
 
             mqttclient.get()
         """
+        self.logger.info(f"Getting last value from {self.topic_name}")
         self.mqtt_client.publish(f"{self.topic_name}/get", "\0")
 
     def loop(self):
