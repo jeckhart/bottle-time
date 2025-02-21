@@ -158,7 +158,7 @@ class MQTTClient:
 
     def connect(self):
         # Set up a MiniMQTT Client
-        # Setup the callback methods above
+        # Set up the callback methods above
         self.mqtt_client.on_connect = self.connected
         self.mqtt_client.on_disconnect = self.disconnected
         self.mqtt_client.on_message = self.message
@@ -296,7 +296,7 @@ class BottleTracker:
     def new_bottle_handler(self, message):
         data = json.loads(message)
         event = data.get("event")
-        event_ts = data.get("event-ts")
+        event_ts = data.get("event-ts") or data.get("timestamp")
         ounces = data.get("ounces")
         self.logger.debug(f"New bottle event received: {event} at {event_ts} with {ounces} ounces")
         try:
@@ -305,8 +305,11 @@ class BottleTracker:
             try:
                 # try converting from epoch
                 new_bottle_ts = datetime.fromtimestamp(event_ts)
+                self.logger.debug(f"trying sec from epoch: {new_bottle_ts.isoformat()}")
             except OverflowError:
-                new_bottle_ts = datetime.fromtimestamp(event_ts/1000)
+                new_bottle_ts = datetime.fromtimestamp(event_ts / 1000)
+                self.logger.debug(f"trying ms from epoch: {new_bottle_ts.isoformat()}")
+
             # Adjust from UTC to EST
             new_bottle_ts = new_bottle_ts + adt.timedelta(hours=-5)
 
@@ -316,7 +319,7 @@ class BottleTracker:
     @staticmethod
     def new_bottle_discriminator(message):
         data = json.loads(message)
-        return data.get("event") == "new-bottle"
+        return data.get("event") == "new-bottle" and "event_source" in data and data.get("event_source").lower() == "button"
 
 logging.getLogger("mqtt_client").setLevel(logging.INFO)
 logging.getLogger("ntp_to_rtc").setLevel(logging.DEBUG)
